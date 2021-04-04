@@ -90,6 +90,14 @@ class EditRecord {
                 
                 
                 System.out.println("***Successfully changed !***");
+                String complete = 
+                "Select Person.*, Artist.active_year "+
+                "from Artist "+
+                "left join Person on Artist.Artist_ID = Person.Person_ID;";
+                stmt = conn.prepareStatement(complete);
+                // stmt.setInt(1, 10);
+                rSet = stmt.executeQuery();
+                ShowResult(rSet);
             }   
             catch(SQLException ex){
                 ex.printStackTrace();
