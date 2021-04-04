@@ -111,7 +111,7 @@ public class EditRecord {
 		finally {
 			if(rSet!=null) { rSet.close();}
 			if(stmt!=null) { stmt.close();}
-			if(conn!=null) { conn.close();}
+			// if(conn!=null) { conn.close();}
 
 		}
 		
