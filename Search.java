@@ -1,7 +1,7 @@
 import java.sql.*;
 import java.util.*;
 
-public class notSearch {
+public class Search {
 	static void artist(Connection conn, Scanner scanner, String artist_name){
 		PreparedStatement ps = null;
 		ResultSet rSet = null;
