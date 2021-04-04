@@ -83,5 +83,10 @@ class mainMenu{
 			default:
 			
 		}
+		try{
+		conn.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }
