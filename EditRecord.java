@@ -1,20 +1,20 @@
 
 import java.util.*;
 import java.sql.*;
-class EditRecord {
+public class EditRecord {
 
     // Edit records 
     // Edit an Artist 
 
-	static final String DB_URL = "jdbc:sqlite:Library.db";
-	public static void main(String[] args) throws SQLException
+	// static final String DB_URL = "jdbc:sqlite:Library.db";
+	public static void EditRecord(Connection conn ) throws SQLException
 	{    
-		Connection conn = null;
+        // this.conn = conn;
 		PreparedStatement stmt = null;
 		ResultSet rSet = null;
 		try {
 			System.out.println("Connecting to database...");
-			conn = DriverManager.getConnection(DB_URL);
+			// conn = DriverManager.getConnection(DB_URL);
             System.out.println("Here is existing data of artists: ");
 			String sql = 
             "Select Person.*, Artist.active_year "+
