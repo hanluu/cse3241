@@ -85,6 +85,7 @@ class mainMenu{
 		}
 		try{
 		conn.close();
+		scanner.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
