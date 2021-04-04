@@ -1,9 +1,18 @@
-public class search {
-	void artist(String artist_name){
+import java.sql.*;
 
+public class search {
+	void artist(Connection conn, String artist_name){
+		PreparedStatement ps = null;
+		ResultSet rSet = null;
+		String sqlStatement = "";
+		try{
+		ps = conn.prepareStatement(sqlStatement);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
-	void track(String track_name){
+	void track(Connection conn, String track_name){
 		
 	}
 }
