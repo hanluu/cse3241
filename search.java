@@ -10,6 +10,8 @@ public class search {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		ps.close();
+		rSet.close();
 	}
 
 	void track(Connection conn, String track_name){
