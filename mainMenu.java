@@ -9,7 +9,7 @@ class mainMenu{
 	 *  
 	 *  Otherwise, you will need to provide an absolute path from your C: drive or a relative path from the folder this class is in.
 	 */
-	private static String DATABASE = "C:\\Users\\Michael\\Desktop\\2021 Spring\\Databases 1\\Embedded SQL Lab\\database_binary.db";
+	private static String DATABASE = "Checkpoint4.db";
 	
     /**
      * Connects to the database if it exists, creates it if it does not, and returns the connection object.
@@ -40,6 +40,7 @@ class mainMenu{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             System.out.println("There was a problem connecting to the database.");
+			System.exit(1);
         }
         return conn;
     }
@@ -61,6 +62,30 @@ class mainMenu{
 		
 		switch(option){
 			case "1":
+			String searchOption = "";
+			System.out.println("Which would you like to search for?");
+			System.out.println("a. Artist");
+			System.out.println("b. Track");
+			searchOption = scanner.nextLine();
+			
+			
+			switch(searchOption){
+				
+				case "a":
+				System.out.print("Enter the artist name: ");
+				String artist_name = scanner.nextLine();
+				Search.artist(conn, scanner, artist_name);
+
+				break;
+				case "b":
+				System.out.print("Enter the track name: ");
+				String track_name = scanner.nextLine();
+				Search.track(conn, scanner, track_name);
+				break;
+				default:
+				System.out.println("Invalid option.");
+			}
+
 			//search
 			
 			break;
