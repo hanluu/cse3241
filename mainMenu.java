@@ -103,7 +103,7 @@ class mainMenu{
 			break;
 			case "5":
 			//useful reports
-
+			Reports.reports(conn);
 			break;
 			default:
 			
