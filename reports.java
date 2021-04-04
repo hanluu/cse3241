@@ -61,7 +61,7 @@ import java.util.*;
  * 
  */
 
-public class CSE3241app {
+public class reports {
     
 	/**
 	 *  The database file name.
@@ -70,7 +70,7 @@ public class CSE3241app {
 	 *  
 	 *  Otherwise, you will need to provide an absolute path from your C: drive or a relative path from the folder this class is in.
 	 */
-	private static String DATABASE = "./project_database.db";
+	//private static String DATABASE = "./project_database.db";
 	
 	
 	/**
@@ -88,13 +88,8 @@ public class CSE3241app {
      * @param databaseFileName the database file name
      * @return a connection object to the designated database
      */
+	/*
     public static Connection initializeDB(String databaseFileName) {
-    	/**
-    	 * The "Connection String" or "Connection URL".
-    	 * 
-    	 * "jdbc:sqlite:" is the "subprotocol".
-    	 * (If this were a SQL Server database it would be "jdbc:sqlserver:".)
-    	 */
         String url = "jdbc:sqlite:" + databaseFileName;
         Connection conn = null; // If you create this variable inside the Try block it will be out of scope
         try {
@@ -114,7 +109,7 @@ public class CSE3241app {
         }
         return conn;
     }
-    
+	*/
     /**
      * Queries the database and prints the results.
      * 
@@ -148,10 +143,9 @@ public class CSE3241app {
         }
     }
     
-    public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+    public reports(Connection conn) {
+		Scanner scanner_r = new Scanner(System.in);
 		while(true) {
-			Connection conn = initializeDB(DATABASE);
 			System.out.println("Select an action number, then input the corresponding arguments:");
 			System.out.println("(1) Find the titles of all tracks by ARTIST released before YEAR.");
 			System.out.println("(2) Find the total number of albums checked out by a single patron.");
@@ -159,17 +153,16 @@ public class CSE3241app {
 			System.out.println("(4) Find the most listened to artist in the database.");
 			System.out.println("(5) Find the patron who has checked out the most videos and the total number of videos they have checked out.");
 			System.out.println("(6) Exit Useful Report searching.");
-			String selectReport = scanner.nextLine();
+			String selectReport = scanner_r.nextLine();
 			PreparedStatement stmt = null;
 			ResultSet rSet = null;
-
 
 			if(selectReport.equals("1")){
 				try {
 					System.out.println("Which ARTIST are you looking for?");
-					String artistName = scanner.nextLine();
+					String artistName = scanner_r.nextLine();
 					System.out.println("What's the restriction for released year?");
-					String year = scanner.nextLine();
+					String year = scanner_r.nextLine();
 					
 					String sql = "SELECT Track.Track_Name " + 
 						"FROM Track, Track_Album_Relationship, CreatorItemRelationship, Person, Item "	+
@@ -188,7 +181,7 @@ public class CSE3241app {
 						System.out.println("Track_Name: " + Track_Name);
 					}
 					System.out.println(("\n=======================================\nClick to Continue"));
-					String dummy  = scanner.nextLine();
+					String dummy  = scanner_r.nextLine();
 				}
 				catch(Exception ex) {
 					System.out.println("Something's going wrong for Useful Report 1. " + ex.getMessage());
@@ -196,14 +189,14 @@ public class CSE3241app {
 				finally {
 					if(rSet != null)	try {rSet.close();} catch(Exception ex){} finally{}
 					if(stmt != null)	try {stmt.close();} catch(Exception ex){} finally{}
-					if(conn != null)	try {conn.close();} catch(Exception ex){} finally{}
+					//if(conn != null)	try {conn.close();} catch(Exception ex){} finally{}
 				}
 			}
 					
 			else if(selectReport.equals("2")){
 				try {
 					System.out.println("Which Patron are you looking for? Please input the name of the patron.");
-					String Name  = scanner.nextLine();
+					String Name  = scanner_r.nextLine();
 					
 					String sql = "SELECT count(distinct Item.Title) "	+
 						"FROM  Item, Patron, LibraryCard, BorrowingHistory, Album, Person "	+
@@ -218,7 +211,7 @@ public class CSE3241app {
 						System.out.println("Total Count = " + returnCount);
 					}
 					System.out.println(("\n=======================================\nClick to Continue"));
-					String dummy  = scanner.nextLine();
+					String dummy  = scanner_r.nextLine();
 				}
 				catch(Exception ex) {
 					System.out.println("Something's going wrong for Useful Report 2. " + ex.getMessage());
@@ -226,7 +219,7 @@ public class CSE3241app {
 				finally {
 					if(rSet != null)	try {rSet.close();} catch(Exception ex){} finally{}
 					if(stmt != null)	try {stmt.close();} catch(Exception ex){} finally{}
-					if(conn != null)	try {conn.close();} catch(Exception ex){} finally{}
+					//if(conn != null)	try {conn.close();} catch(Exception ex){} finally{}
 				}
 			}
 			
@@ -242,7 +235,7 @@ public class CSE3241app {
 					System.out.println("\n");				
 					sqlQuery(conn, sql);
 					System.out.println(("\n=======================================\nClick to Continue"));
-					String dummy  = scanner.nextLine();
+					String dummy  = scanner_r.nextLine();
 				}
 				catch(Exception ex) {
 					System.out.println("Something's going wrong for Useful Report 3. " + ex.getMessage());
@@ -250,7 +243,7 @@ public class CSE3241app {
 				finally {
 					if(rSet != null)	try {rSet.close();} catch(Exception ex){} finally{}
 					if(stmt != null)	try {stmt.close();} catch(Exception ex){} finally{}
-					if(conn != null)	try {conn.close();} catch(Exception ex){} finally{}
+					//if(conn != null)	try {conn.close();} catch(Exception ex){} finally{}
 				}
 			}
 			
@@ -270,7 +263,7 @@ public class CSE3241app {
 					System.out.println("\n");	
 					sqlQuery(conn, sql);
 					System.out.println(("\n=======================================\nClick to Continue"));
-					String dummy  = scanner.nextLine();
+					String dummy  = scanner_r.nextLine();
 				}
 				catch(Exception ex) {
 					System.out.println("Something's going wrong for Useful Report 4. " + ex.getMessage());
@@ -278,7 +271,7 @@ public class CSE3241app {
 				finally {
 					if(rSet != null)	try {rSet.close();} catch(Exception ex){} finally{}
 					if(stmt != null)	try {stmt.close();} catch(Exception ex){} finally{}
-					if(conn != null)	try {conn.close();} catch(Exception ex){} finally{}
+					//if(conn != null)	try {conn.close();} catch(Exception ex){} finally{}
 				}
 			}
 
@@ -304,7 +297,7 @@ public class CSE3241app {
 					System.out.println("\n");
 					sqlQuery(conn, sql);
 					System.out.println(("\n=======================================\nClick to Continue"));
-					String dummy  = scanner.nextLine();
+					String dummy  = scanner_r.nextLine();
 				}
 				catch(Exception ex) {
 					System.out.println("Something's going wrong for Useful Report 5. " + ex.getMessage());
@@ -312,7 +305,7 @@ public class CSE3241app {
 				finally {
 					if(rSet != null)	try {rSet.close();} catch(Exception ex){} finally{}
 					if(stmt != null)	try {stmt.close();} catch(Exception ex){} finally{}
-					if(conn != null)	try {conn.close();} catch(Exception ex){} finally{}
+					//if(conn != null)	try {conn.close();} catch(Exception ex){} finally{}
 				}
 			}
 			
@@ -344,6 +337,6 @@ public class CSE3241app {
 			}
 			}*/
 		}
-		scanner.close();
+		scanner_r.close();
     }
 }
