@@ -91,11 +91,119 @@ class mainMenu{
 			break;
 			case "2":
 			//add new records
+			System.out.println("Which would you like to add?");
+			System.out.println("a. Artist");
+			System.out.println("b. Audiobook");
+			searchOption = scanner.nextLine();
 			
+			switch(searchOption){
+				
+				case "a": // enter artist
+				System.out.print("Enter the artist name: ");
+				String artist_name = scanner.nextLine();
+				System.out.print("Enter the artist's ID: ");
+				String id_string = scanner.nextLine();
+				int id = Integer.parseInt(id_string);
+				System.out.print("Enter the artist's last active year: ");
+				String active_year_string = scanner.nextLine();
+				int active_year = Integer.parseInt(active_year_string);
+				try{
+				order_final.insertPerson(conn,id,artist_name);
+				order_final.insertArtist(conn,id,active_year);
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+
+				break; 
+				case "b": // enter audiobook
+
+				System.out.print("Enter the book title: ");
+				String title = scanner.nextLine();
+				System.out.print("Enter the Item's ID: ");
+				String item_id_string = scanner.nextLine();
+				int item_id = Integer.parseInt(item_id_string);
+				System.out.print("Enter the Item's inventory ID (1 or 2):");
+				String inventory_id_string = scanner.nextLine();
+				int inventory_id = Integer.parseInt(inventory_id_string);
+				System.out.print("Enter the book's length in seconds: ");
+				String length_string = scanner.nextLine();
+				int length = Integer.parseInt(length_string);
+				System.out.print("Enter the book's content rating: ");
+				String content_rating = scanner.nextLine();
+				System.out.print("Enter the book's release year: ");
+				String year_string = scanner.nextLine();
+				int year = Integer.parseInt(year_string);
+				System.out.print("Enter the number of copies of the book: ");
+				String copies_string = scanner.nextLine();
+				int copies = Integer.parseInt(copies_string);
+				System.out.print("Enter the book's genre: ");
+				String genre = scanner.nextLine();
+				System.out.print("Enter the number of chapters: ");
+				String num_chap_string = scanner.nextLine();
+				int num_chap = Integer.parseInt(num_chap_string);
+
+				// public static void insertItem(Connection conn, int item_ID, int inventory_ID, int length, String content_rate,
+// int year, String title, int num_copy) throws SQLException
+			try{
+				order_final.insertItem(conn,item_id,inventory_id,length,content_rating,year,title,copies); // seems to delete all other items from the database 
+				order_final.insertAudiobook(conn,item_id,genre,num_chap);
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+
+
+				break;
+				default:
+				System.out.println("Invalid option.");
+			}
 			break;
 			case "3":
 			//order items
+			System.out.println("What would you like to do?");
+			System.out.println("a. Order a movie");
+			System.out.println("b. Activate Item");
+			searchOption = scanner.nextLine();
 			
+			switch(searchOption){
+			case "a":
+				// public static void insertOrder(Connection conn, int sysUser_ID, int order_ID, double price, Date arrive_date,
+			// boolean isLate, int no_copies, int item_ID) throws SQLException 
+			System.out.print("Enter the ordering system user's ID: ");
+				String Sys_ID_s = scanner.nextLine();
+				int Sys_ID = Integer.parseInt(Sys_ID_s);
+				System.out.print("Enter the order ID: ");
+				String order_ID_s = scanner.nextLine();
+				int order_ID = Integer.parseInt(order_ID_s);
+				System.out.print("Enter the price of the order: ");
+				String price_s = scanner.nextLine();
+				double price = Double.parseDouble(price_s);
+				//TODO: Ask user for date and convert to correct format
+				System.out.print("Is the order late?: ");
+				String isLate_s = scanner.nextLine();
+				boolean is_Late;
+				switch(isLate_s){
+					case "y":
+					case "yes":
+						is_Late = true;
+					break;
+					default:
+					is_Late = false;
+				}
+				System.out.print("Enter the number of copies: ");
+				String copies_s = scanner.nextLine();
+				int copies = Integer.parseInt(copies_s);
+				System.out.print("Enter the ordered item's ID: ");
+				String item_id_s = scanner.nextLine();
+				int item_id = Integer.parseInt(item_id_s);
+				order_final.insertOrder(conn,Sys_ID,order_ID,price,/*TODO: DATE*/,is_Late,copies,item_id);
+			break;
+			case "b":
+			//Activate item received
+			break;
+			default:
+			System.out.println("Invalid option.");
+			System.exit(1);
+			}
 			break;
 			case "4":
 			//edit records
@@ -106,7 +214,8 @@ class mainMenu{
 			Reports.reports(conn);
 			break;
 			default:
-			
+			System.out.println("Invalid option.");
+			System.exit(1);
 		}
 		try{
 		conn.close();
