@@ -7,43 +7,44 @@ public class EditRecord {
     // Edit an Artist 
 
 	// static final String DB_URL = "jdbc:sqlite:Library.db";
-	public static void EditRecord(Connection conn ) throws SQLException
+	public static void Edit(Connection conn, Scanner scanner ) throws SQLException
 	{    
         // this.conn = conn;
 		PreparedStatement stmt = null;
 		ResultSet rSet = null;
 		try {
-			System.out.println("Connecting to database...");
+			// System.out.println("Connecting to database...");
 			// conn = DriverManager.getConnection(DB_URL);
             System.out.println("Here is existing data of artists: ");
 			String sql = 
             "Select Person.*, Artist.active_year "+
             "from Artist "+
-            "left join Person on Artist.Artist_ID = Person.Person_ID;";
+            "left join Person on Artist.Person_ID = Person.Person_ID;";
 			stmt = conn.prepareStatement(sql);
 			// stmt.setInt(1, 10);
 			rSet = stmt.executeQuery();
             ShowResult(rSet);
 
-            System.out.println("Choose an artist by entering s/he Person_ID.");
-            Scanner input2 = new Scanner(System.in); 
+            System.out.println("Choose an artist by entering their Person_ID.");
+            // Scanner input2 = new Scanner(System.in); 
             System.out.print("ArtistId: ");
-            String artist = input2.nextLine();
-            System.out.println("Edit artist's name please press 1.");
-			System.out.println("Edit active year please press 2.");
-            System.out.println("Edit both artist's name and active year please press 3.");
+            String artist = scanner.nextLine();
+			System.out.println("What would you like to do?");
+            System.out.println("1. Edit artist's name.");
+			System.out.println("2. Edit active year please.");
+            System.out.println("3. Edit both artist's name and active year.");
 
-            Scanner temp1 = new Scanner(System.in); 
-			String which = temp1.nextLine();
+            // Scanner temp1 = new Scanner(System.in); 
+			String which = scanner.nextLine();
             
             
             try{
                 String update = "";
                 
                 if(which.equals("1")){
-				    System.out.print("New name: ");
-                    Scanner temp = new Scanner(System.in); 
-                    String edit = temp.nextLine();
+				    System.out.print("What is the artist's new name? ");
+
+                    String edit = scanner.nextLine();
                     update = "update Person set Name = ? where Person.Person_ID = ?;";
                     stmt = null;
                     stmt = conn.prepareStatement(update);
@@ -53,10 +54,9 @@ public class EditRecord {
 	    		    stmt.executeUpdate();
                 }
                 if(which.equals("2")){
-                    System.out.print("New active year: ");
-                    Scanner temp = new Scanner(System.in); 
-                    String edit = temp.nextLine();
-                    update = "update Artist set active_year = ? where Artist.Artist_ID = ?;";
+                    System.out.print("What is the artist's new active year? ");
+                    String edit = scanner.nextLine();
+                    update = "update Artist set active_year = ? where Artist.Person_ID = ?;";
                     stmt = null;
                     stmt = conn.prepareStatement(update);
                     stmt.setInt(1, Integer.parseInt(edit));
@@ -65,12 +65,10 @@ public class EditRecord {
 	    		    stmt.executeUpdate();
                 }
                 if(which.equals("3")){
-                    System.out.print("New name: ");
-                    Scanner temp = new Scanner(System.in); 
-                    String edit1 = temp.nextLine();
-                    System.out.print("New active year: ");
-                    temp = new Scanner(System.in);
-                    String edit2 = temp.nextLine();
+				    System.out.print("What is the artist's new name? ");
+                    String edit1 = scanner.nextLine();
+                    System.out.print("What is the artist's new active year? ");
+                    String edit2 = scanner.nextLine();
                     System.out.println("Editing ...");
                     update = "update Person set Name = ? where Person.Person_ID = ?;";
                     stmt = null;
@@ -79,7 +77,7 @@ public class EditRecord {
                     stmt.setInt(2, Integer.parseInt(artist));
 	    		    stmt.executeUpdate();
 
-                    update = "update Artist set active_year = ? where Artist.Artist_ID = ?;";
+                    update = "update Artist set active_year = ? where Artist.Person_ID = ?;";
                     stmt = null;
                     stmt = conn.prepareStatement(update);
                     stmt.setInt(1, Integer.parseInt(edit2));
@@ -93,7 +91,7 @@ public class EditRecord {
                 String complete = 
                 "Select Person.*, Artist.active_year "+
                 "from Artist "+
-                "left join Person on Artist.Artist_ID = Person.Person_ID;";
+                "left join Person on Artist.Person_ID = Person.Person_ID;";
                 stmt = conn.prepareStatement(complete);
                 // stmt.setInt(1, 10);
                 rSet = stmt.executeQuery();
