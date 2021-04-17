@@ -166,38 +166,43 @@ class mainMenu{
 			
 			switch(searchOption){
 			case "a":
-System.out.println("This feature is still under development.");
+// System.out.println("This feature is still under development.");
 
-			// 	// public static void insertOrder(Connection conn, int sysUser_ID, int order_ID, double price, Date arrive_date,
-			// // boolean isLate, int no_copies, int item_ID) throws SQLException 
-			// System.out.print("Enter the ordering system user's ID: ");
-			// 	String Sys_ID_s = scanner.nextLine();
-			// 	int Sys_ID = Integer.parseInt(Sys_ID_s);
-			// 	System.out.print("Enter the order ID: ");
-			// 	String order_ID_s = scanner.nextLine();
-			// 	int order_ID = Integer.parseInt(order_ID_s);
-			// 	System.out.print("Enter the price of the order: ");
-			// 	String price_s = scanner.nextLine();
-			// 	double price = Double.parseDouble(price_s);
-			// 	//TODO: Ask user for date and convert to correct format
-			// 	System.out.print("Is the order late?: ");
-			// 	String isLate_s = scanner.nextLine();
-			// 	boolean is_Late;
-			// 	switch(isLate_s){
-			// 		case "y":
-			// 		case "yes":
-			// 			is_Late = true;
-			// 		break;
-			// 		default:
-			// 		is_Late = false;
-			// 	}
-			// 	System.out.print("Enter the number of copies: ");
-			// 	String copies_s = scanner.nextLine();
-				// int copies = Integer.parseInt(copies_s);
-				// System.out.print("Enter the ordered item's ID: ");
-				// String item_id_s = scanner.nextLine();
-				// int item_id = Integer.parseInt(item_id_s);
-				// order_final.insertOrder(conn,Sys_ID,order_ID,price,/*TODO: DATE*/,is_Late,copies,item_id);
+				// public static void insertOrder(Connection conn, int sysUser_ID, int order_ID, double price, Date arrive_date,
+			// boolean isLate, int no_copies, int item_ID) throws SQLException 
+			System.out.print("Enter the ordering system user's ID: ");
+				String Sys_ID_s = scanner.nextLine();
+				int Sys_ID = Integer.parseInt(Sys_ID_s);
+				System.out.print("Enter the order ID: ");
+				String order_ID_s = scanner.nextLine();
+				int order_ID = Integer.parseInt(order_ID_s);
+				System.out.print("Enter the price of the order: ");
+				String price_s = scanner.nextLine();
+				double price = Double.parseDouble(price_s);
+				//TODO: Ask user for date and convert to correct format
+				
+				System.out.print("Enter the date of the order (YYYY-MM-DD):");
+				String date_s = scanner.nextLine();
+				Date date = Date.valueOf(date_s);
+				
+				System.out.print("Is the order late?: ");
+				String isLate_s = scanner.nextLine();
+				boolean is_Late;
+				switch(isLate_s){
+					case "y":
+					case "yes":
+						is_Late = true;
+					break;
+					default:
+					is_Late = false;
+				}
+				System.out.print("Enter the number of copies: ");
+				String copies_s = scanner.nextLine();
+				int copies = Integer.parseInt(copies_s);
+				System.out.print("Enter the ordered item's ID: ");
+				String item_id_s = scanner.nextLine();
+				int item_id = Integer.parseInt(item_id_s);
+				order_final.insertOrder(conn,Sys_ID,order_ID,price,date,is_Late,copies,item_id);
 
 			break;
 			case "b":
