@@ -45,7 +45,7 @@ class mainMenu{
         }
         return conn;
     }
-	public static void main(String[] args){
+	public static void main(String[] args) throws SQLException{
 		Scanner scanner = new Scanner(System.in);
     	String option = "";
 
@@ -216,6 +216,35 @@ class mainMenu{
 			break;
 			case "b":
 			//TODO: Activate item received
+
+
+			String sqlStatement = "SELECT Item_ID, No_copies FROM \"Order\" WHERE Order_ID =?";
+			PreparedStatement ps = null;
+			ResultSet rSet = null;
+
+			System.out.println("This action will add an order's items to the rest of the database.");
+			System.out.print("Which order is going to be added? (Enter an order ID): ");
+			String order_id_s = scanner.nextLine();
+			int order_item_id = 0;
+			int order_num_copies = 0;
+			int order_id = Integer.parseInt(order_id_s);
+			try{
+				ps = conn.prepareStatement(sqlStatement);
+				ps.setInt(1, order_id);
+				rSet = ps.executeQuery();
+				while(rSet.next()){
+					order_item_id = rSet.getInt("Item_ID");
+					order_num_copies = rSet.getInt("No_copies");
+				}
+				
+				order_final.updateItem(conn, order_item_id, order_num_copies);
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				ps.close();
+				rSet.close();
+			}
+
 			break;
 			default:
 			System.out.println("Invalid option.");

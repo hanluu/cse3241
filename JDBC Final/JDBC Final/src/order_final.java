@@ -374,7 +374,7 @@ public class order_final {
 			ps.setInt(1, item_ID);
 			rSet = ps.executeQuery();
 			while(rSet.next()){
-				num_copies = rSet.getInt("item_ID");
+				num_copies = rSet.getInt("Num_Copies");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
