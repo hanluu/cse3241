@@ -347,9 +347,10 @@ public class order_final {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
+			int old_num_copies = getNumCopies(conn, item_ID);
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(2, item_ID);
-			stmt.setInt(1, num_copy);
+			stmt.setInt(1, num_copy+old_num_copies);
 			stmt.executeUpdate();
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -361,6 +362,24 @@ public class order_final {
 				rs.close();
 			}
 		}
+	}
+
+	public static int getNumCopies(Connection conn, int item_ID){
+		int num_copies = 0;
+		String sql = "SELECT Num_Copies FROM \"Item\" WHERE Item_ID =?";
+		PreparedStatement ps = null;
+		ResultSet rSet = null;
+		try{
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, item_ID);
+			rSet = ps.executeQuery();
+			while(rSet.next()){
+				num_copies = rSet.getInt("item_ID");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return num_copies;
 	}
 
 	// public static void main(String[] args) {
