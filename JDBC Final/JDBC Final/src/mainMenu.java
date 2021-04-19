@@ -186,7 +186,8 @@ class mainMenu{
 				String date_s = scanner.nextLine();
 				// System.out.println(date_s);
 				// java.sql.
-				// java.sql.Date date = java.sql.Date.valueOf(date_s);
+				java.sql.Date date = java.sql.Date.valueOf(date_s);
+				
 				// System.out.println(date);
 				System.out.print("Is the order late?: ");
 				String isLate_s = scanner.nextLine();
